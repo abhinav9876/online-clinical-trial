@@ -1,0 +1,224 @@
+@import './variables';
+
+body:not(.v2) {
+  padding-top: $header-height + $header-welcome-height;
+}
+
+.puzz-header {
+  border: 0;
+  background: linear-gradient(to bottom, $theme-color-main-grad-top, $theme-color-main-grad-botton);
+  margin-bottom: 0;
+  height: $header-height;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+}
+
+.header--welcome {
+  background-color: #eeeeee;
+  display: flex;
+  justify-content: space-between;
+  line-height: $header-welcome-height;
+  position: fixed;
+  top: $header-height;
+  z-index: 10;
+
+  p {
+    margin: 0;
+  }
+}
+
+.puzz-header-left {
+}
+.puzz-header-center {
+}
+.puzz-header-right {
+  margin-right: 50px;
+}
+.puzz-header__logo {
+  height: 30px;
+}
+
+.puzz-header__btn-logout {
+  background-color: transparent;
+  border: none;
+  & > img {
+    height: 20px;
+  }
+  &:hover {
+    background-color: transparent;
+    border: none;
+  }
+}
+
+.puzz-sidebar {
+  position: fixed;
+  top: $header-height;
+  bottom: 60px;
+  left: 0;
+  display: block;
+  padding: 20px;
+  padding-top: 0px;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  background-color: $theme-color-menu;
+  border-right: 2px solid $theme-color-light-grey;
+}
+
+.puzz-nav-branch {
+  display: inline-block;
+  width: 10px;
+  height: 5px;
+  margin-left: 2px;
+  margin-right: 10px;
+  vertical-align: middle;
+  border-bottom: 2px solid;
+  border-left: 2px solid;
+  border-color: $theme-color-black;
+}
+
+.puzz-nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-left: -20px;
+  & > li > a.nav-super {
+    font-size: 14px;
+    height: $side-menu-nav-height;
+    padding-right: 20px;
+    padding-left: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: $theme-color-black;
+    border-top: 1px solid $theme-color-light-grey;
+    border-bottom: 1px solid $theme-color-light-grey;
+    display: flex;
+    justify-content: space-between;
+    .caret {
+      margin-top: 8px;
+    }
+  }
+  & > li > a.nav-child {
+    font-size: 12px;
+    padding-right: 20px;
+    padding-left: 30px;
+  }
+  & > .active > a,
+  & > .active > a:hover,
+  & > .active > a:focus {
+    color: #fff;
+    background-color: #428bca;
+  }
+}
+
+.puzz-full {
+  margin-top: 60px;
+  padding: 20px 40px 60px;
+}
+
+.puzz-main {
+  //padding-top: 20px;
+  padding-right: 40px;
+  padding-left: 40px;
+  padding-bottom: 60px;
+}
+
+.puzz-home {
+  .menu-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .menu {
+    margin: 10px;
+  }
+}
+
+.puzz-menu-box-title-bar {
+  border-top: 3px solid $theme-color-main;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.puzz-menu-box {
+  min-height: 230px;
+  width: 180px;
+  padding: 10px;
+  border: 1px solid $theme-color-grey;
+  border-radius: 5px;
+  box-shadow: 0 0 10px black;
+}
+.puzz-menu-box-text {
+  font-size: 10px;
+}
+
+// table style
+.puzz-table .puzz-table-label {
+  background-color: $theme-color-grey;
+  vertical-align: middle;
+}
+
+.puzz-table .puzz-table__cell {
+  vertical-align: middle;
+}
+
+.puzz-table-responsive {
+  overflow: inherit;
+}
+
+.puzz-table__action-link {
+  &:hover {
+    cursor: pointer;
+    background-color: blue;
+  }
+}
+
+.puzz-table__form-inline {
+  margin-top: 5px;
+}
+
+.puzz-table__tools {
+  width: 100%;
+}
+.puzz-table__tools__action {
+  &:hover {
+    cursor: pointer;
+  }
+}
+.oscr-panel--template {
+  display:none;
+}
+.oscr-dropdown-item--template {
+  display:none;
+}
+.oscr-checkbox-item--template {
+  display:none;
+}
+.oscr-matrix-item--template {
+  display:none;
+}
+.smo-panel--template {
+  display:none;
+}
+.notification-email-panel--template {
+  display:none;
+}
+
+.navbar--footer {
+  background-color: rgba(10, 10, 10, 1);
+}
+
+.link--footer-logo {
+  line-height: 49px;
+}
+
+.img--footer-logo {
+  margin-bottom: 10px;
+}
+
+.inline-checkbox-label {
+  cursor: pointer;
+  margin: 0;
+}
+.inline-matrix-label {
+  cursor: pointer;
+  margin: 0;
+}

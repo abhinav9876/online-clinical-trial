@@ -1,0 +1,10 @@
+.age-range-form-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+
+.age-range-form-container__input-separator {
+  align-self: center;
+  margin: 0 16px;
+}

@@ -1,0 +1,47 @@
+version: '2'
+services:
+  puzz:
+    image: heroku-laravel:2.0
+    ports:
+      - 5000:5000
+    volumes:
+      - .:/var/www/puzz-app
+    working_dir: /var/www/puzz-app
+    # migrateやdb:seedを実行To場合は `RESET_DB=1 docker-compose up`
+    # 環境変数を初期化To場合は `INIT_APP=1 docker-compose up`
+    command: >
+      bash -lc " npm install && \
+        ([ ! -z $INIT_APP ] && cp -p /var/www/puzz-app/.env.example /var/www/puzz-app/.env || echo 'skipping init env') && \
+        php artisan key:generate && \
+        ([ ! -z $RESET_DB ] && php artisan migrate:refresh || echo 'skipping migrate:refresh') && \
+        ([ ! -z $RESET_DB ] && php artisan db:seed ||  echo 'skipping db:seed') && \
+        php artisan serve -vvv --host 0.0.0.0"
+    depends_on:
+      - puzz-db
+  puzz-db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=db
+      - POSTGRES_USER=user
+    ports:
+      - 5432:5432
+  redis:
+    image: redis:latest
+
+# For smt mock
+#  smt:
+#    image: heroku-laravel:1.1
+#    volumes:
+#      - ../smt-mock-app:/var/www/smt-app
+#    working_dir: /var/www/smt-app/dev
+#    ports:
+#      - 8080:8000
+#  smt-db:
+#    image: postgres:latest
+#    environment:
+#      - POSTGRES_PASSWORD=smtpassword
+#      - POSTGRES_DB=smtdb
+#      - POSTGRES_USER=smtuser
+#    ports:
+#      - 15432:5432

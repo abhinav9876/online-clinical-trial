@@ -1,0 +1,29 @@
+.table--inner {
+  margin-bottom: 0;
+}
+
+.table--inner tbody tr td {
+  border-top: none;
+  padding: 0;
+}
+
+.table--inner + .btn.btn-block,
+.form-inline.facility_address,
+.form-inline.facility_address .form-group,
+#btn-clear-address,
+.form-inline.address,
+.form-inline.address .form-group,
+#btn-clear-cro-address,
+#btn-clear-billing-address,
+#btn-clear-smo-address
+{
+  margin-top: 8px;
+}
+
+.form-group--exam_schedule_items table.table.table-bordered, .form-group--reward_items table.table.table-bordered {
+  margin-bottom: 8px;
+}
+
+.table .include-dropdown {
+  width: 180px;
+}

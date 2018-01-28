@@ -1,0 +1,227 @@
+<?php
+
+namespace App\Console\Commands;
+
+use Illuminate\Console\Command;
+use App\JMACCT;
+use App\JMACCTData;
+use Goodby\CSV\Import\Standard\Lexer;
+use Goodby\CSV\Import\Standard\Interpreter;
+use Goodby\CSV\Import\Standard\LexerConfig;
+use Illuminate\Support\Facades\Log;
+
+class InsertJMACCT extends InsertMedicine
+{
+    protected $csv_filename_sample = '/../database/master_data/sample_jmacct.csv';
+    protected $csv_filename_sample_data = '/../database/master_data/sample_jmacct_data.csv';
+    
+    protected $sample_class = 'App\JMACCT';
+    protected $sample_data_class = 'App\JMACCTData';
+    protected $sample_id_key = 'jmacct_id';
+    
+    protected $signature = 'insert-jmacct:run';
+    protected $description = 'Insert JMACCT data';
+
+    protected $sample_columns = [
+        'ctnnum',
+        'date', // skip
+        'dosfrm1',
+        'dosfrm2',
+        'dosfrm3',
+        'dosfrm4',
+        'dosfrm5',
+        'fdcntry1',
+        'fdcntry2',
+        'fdcntry3',
+        'fdorgtyp1',
+        'fdorgtyp2',
+        'fdorgtyp3',
+        'fdsrce1',
+        'fdsrce2',
+        'fdsrce3',
+        'geneinfo',
+        'indctyp',
+        'indic',
+        'intvtyp',
+        'jmacct_id', // naming warning
+        'jrgstdtc',
+        'nature',
+        'objprime',
+        'objsec',
+        'oncolo',
+        'phase',
+        'recrstat',
+        'rgstdtc',
+        'rgstprim',
+        'rgstsec1',
+        'rgstsec2',
+        'rgstsec3',
+        'rgstsec4',
+        'rgstsec5',
+        'sponsor',
+        'spsec',
+        'stuidsec1',
+        'stuidsec2',
+        'stuidsec3',
+        'stuidsec4',
+        'stuidsec5',
+        'summary',
+        'thpyarea',
+        'title',
+        'titlecd',
+        'titlepub',
+        'trt1',
+        'trt2',
+        'trt3',
+        'trt4',
+        'trt5',
+        'trtdur1',
+        'trtdur2',
+        'trtdur3',
+        'trtdur4',
+        'trtdur5',
+        'type1',
+        'type2',
+        'type3',
+        'type4',
+        'type5',
+        'update_date', // skip
+        'ustudyid',
+    ];
+    protected $sample_skip_columns = [
+        'date',
+        'update_date',
+    ];
+    protected $sample_data_columns = [
+        'accepthv',
+        'agemax',
+        'agemaxu',
+        'agemin',
+        'ageminu',
+        'analdtc',
+        'armnum',
+        'blind',
+        'cntcaddr',
+        'cntcdepart',
+        'cntceml',
+        'cntcfax',
+        'cntcnam',
+        'cntcorg',
+        'cntctel',
+        'comptrt1',
+        'comptrt2',
+        'comptrt3',
+        'conceal',
+        'control',
+        'country',
+        'ctdosfrm1',
+        'ctdosfrm2',
+        'ctdosfrm3',
+        'ctdosfrq1',
+        'ctdosfrq2',
+        'ctdosfrq3',
+        'ctdosrgm1',
+        'ctdosrgm2',
+        'ctdosrgm3',
+        'ctdostxt1',
+        'ctdostxt2',
+        'ctdostxt3',
+        'ctdosu1',
+        'ctdosu2',
+        'ctdosu3',
+        'ctfrqtxt1',
+        'ctfrqtxt2',
+        'ctfrqtxt3',
+        'ctroute1',
+        'ctroute2',
+        'ctroute3',
+        'cttrtdur1',
+        'cttrtdur2',
+        'cttrtdur3',
+        'date', // skip
+        'design',
+        'dose1',
+        'dose2',
+        'dose3',
+        'dose4',
+        'dose5',
+        'dosfrq1',
+        'dosfrq2',
+        'dosfrq3',
+        'dosfrq4',
+        'dosfrq5',
+        'dosrgm1',
+        'dosrgm2',
+        'dosrgm3',
+        'dosrgm4',
+        'dosrgm5',
+        'dostxt1',
+        'dostxt2',
+        'dostxt3',
+        'dostxt4',
+        'dostxt5',
+        'dosu1',
+        'dosu2',
+        'dosu3',
+        'dosu4',
+        'dosu5',
+        'dtclodtc',
+        'dtlckdtc',
+        'ethcappr',
+        'excl',
+        'fpidtc',
+        'frqtxt1',
+        'frqtxt2',
+        'frqtxt3',
+        'frqtxt4',
+        'frqtxt5',
+        'fuendtc',
+        'incl',
+        'invaddr',
+        'invdept',
+        'invfax',
+        'invnam',
+        'invorg',
+        'invtel',
+        'irbdtc',
+        'jmacct_id', // skip, naming waring
+        'jpnpref',
+        'othinfo',
+        'out1meas',
+        'out1tpt',
+        'out2meas',
+        'out2tot',
+        'outprim',
+        'outsec',
+        'plansub',
+        'prtcldtc',
+        'ranbloc',
+        'random',
+        'randynmc',
+        'ranstrat',
+        'ranu',
+        'respubl',
+        'route1',
+        'route2',
+        'route3',
+        'route4',
+        'route5',
+        'sexpop',
+        'sitenum',
+        'sitetyp',
+        'studendtc',
+        'studyurl',
+        'stustdtc',
+        'update_date', // skip
+    ];
+    protected $sample_data_skip_columns = [
+        'date',
+        'jmacct_id',
+        'update_date',
+    ];
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
+}
