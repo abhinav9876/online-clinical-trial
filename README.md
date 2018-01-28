@@ -1,9 +1,9 @@
-<<<<<<< HEAD
+
 # First time setup
 
 #### Clone and enter repository (please pull newest commits)
 ```
-$ git clone git@github.com:mulodo-japan/br-puzz-app.git
+$ git clone https://github.com/abhinav9876/online-clinical-trial
 $ cd br-puzz-app
 ```
 
