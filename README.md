@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # First time setup
 
 #### Clone and enter repository (please pull newest commits)
@@ -71,3 +72,6 @@ $ php artisan migrate:refresh
 $ docker exec -it puzztest_puzz_1 bash
 $ php artisan db:seed
 ```
+=======
+# online-clinical-trial
+>>>>>>> 46269a4985632b109721aeb7c378d3c155fc6152
